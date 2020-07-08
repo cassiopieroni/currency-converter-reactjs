@@ -1,0 +1,34 @@
+.form-content {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 24px auto;
+}
+
+.form-content input {
+	width: 120px;
+	height: 40px;
+	text-align: right;
+	padding: 0 10px;
+	font-size: 1rem;
+	font-weight: bold;
+	border: 1px solid gray;
+	background-color: rgb(26, 25, 25);
+	color: #f4f4f4;
+}
+
+.form-content span {
+
+	font-weight: bolder;
+	font-size: 1.1rem;
+}
+
+.form-content select {
+	padding: 0 8px;
+	height: 40px;
+	min-width: 220px;
+	border: 1px solid gray;
+	background-color: rgb(26, 25, 25);
+	color: #f4f4f4;
+}

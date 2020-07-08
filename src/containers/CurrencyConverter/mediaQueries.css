@@ -1,0 +1,83 @@
+@media(max-width: 900px){
+
+	.App .content {
+		width: 500px;
+		max-width: 500px;
+		padding: 24px;
+	}
+
+	.App .content form .form-content {
+		flex-direction: column;
+	}
+
+	.App .content form .form-content input,
+	.App .content form .form-content select, 
+	.App .content form button {
+		margin: 16px auto;
+		width: 300px;
+		height: 50px;
+    }
+    
+    .message-error {
+		margin: 16px auto;
+		width: 300px;
+        min-height: 50px;
+        line-height: 1.5;
+        padding: 8px 16px;
+	}
+}
+
+@media(max-width: 600px){
+
+	.App .content {
+		width: 400px;
+		max-width: 400px;
+		padding: 24px 16px;
+    }
+    
+    .resultBox .result-content {
+		width: 350px;
+        max-width: 350px;
+        min-height: 300px;
+		padding: 50px 16px 30px;
+    }
+
+    .resultBox .result-content p {
+        margin: 60px auto 0;
+    }
+    
+    .resultBox .result-content .btn {
+        width: 300px;
+        margin: auto auto 30px;
+    }
+}
+
+@media(max-width: 400px){
+
+	.App .content {
+		width: 300px;
+		max-width: 300px;
+		padding: 24px 8px;
+	}
+
+	.App .content form .form-content input,
+	.App .content form .form-content select,
+	.App .content form button {
+		width: 100%;
+    }
+    
+    .resultBox .result-content {
+		width: 250px;
+		max-width: 250px;
+		padding: 50px 8px 30px;
+    }
+
+	.resultBox .result-content .btn {
+        width: 90%;
+        margin: auto auto 0;
+    }
+    
+    .message-error {
+		width: 100%;
+	}
+}

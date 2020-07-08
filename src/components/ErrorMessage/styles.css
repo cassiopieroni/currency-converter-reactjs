@@ -1,0 +1,13 @@
+.message-error {
+
+    width: 100%;
+    margin: 16px auto;
+    min-height: 40px;
+    line-height: 40px;
+    font-size: 1.05rem;
+    text-align: left;
+    padding: 0 16px;
+    background-color: rgb(253, 155, 155);
+    border: 1px solid red;
+    color: red;
+}
