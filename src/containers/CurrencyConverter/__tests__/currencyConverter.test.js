@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CurrencyConverter from './index.js';
+import CurrencyConverter from '../index.js';
 
 describe('testing my CurrencyConverter.js', () => {
 

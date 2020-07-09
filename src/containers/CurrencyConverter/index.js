@@ -31,10 +31,9 @@ function CurrencyConverter() {
 	// ---------- LIFE CYCLE -----------
 	useEffect(() => {
 		const getCurrencies = async () => {
-
 			try {
 				const names = await fetchCurrencyNames();
-				let serializedCurrencies = createSerializedCurrencies(names);
+				let serializedCurrencies = createSerializedCurrencies(names.symbols);
 				
 				setCurrencies(serializedCurrencies);
 			

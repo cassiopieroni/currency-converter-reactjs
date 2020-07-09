@@ -1,8 +1,17 @@
 export const validadeForm = (error, valueToConvert, currencies, selectedCurrencies) => {
 
-    if ( !error && valueToConvert && currencies && 
-    selectedCurrencies.currencyFrom && selectedCurrencies.currencyTo ) {
+    const { currencyFrom, currencyTo } = selectedCurrencies;
 
+    const isValueToConvert = () => (
+        valueToConvert && !Number.isNaN(valueToConvert) && valueToConvert > 0
+    );
+
+    const isSelectedCurrencies = () => (
+        currencyFrom && (typeof currencyFrom === 'string') && 
+        currencyTo && (typeof currencyTo === 'string') 
+    )
+
+    if ( !error && isValueToConvert() && currencies.length && isSelectedCurrencies()) {
         return true;
     }
     
@@ -18,12 +27,13 @@ export const getQuotation = (quotations, selectedCurrencies, valueToConvert) => 
 };
 
 
-export const createSerializedCurrencies = defaultCurrencies => {
-    const { symbols } = defaultCurrencies;
+export const createSerializedCurrencies = symbols => {
     let serializedCurrencies = [];
-        for (var prop in symbols) {
-            const newCurrency = { initial: prop, description: symbols[prop] }
-            serializedCurrencies.push(newCurrency);
-        }
+
+    for (var prop in symbols) {
+        const newCurrency = { initial: prop, description: symbols[prop] }
+        serializedCurrencies.push(newCurrency);
+    }
+
     return [...serializedCurrencies];
 }
