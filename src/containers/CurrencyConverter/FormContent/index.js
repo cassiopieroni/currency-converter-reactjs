@@ -7,7 +7,7 @@ const FormContent = (props) => {
 
     const { 
         valueToConvert, changeValueToConvert, selectedCurrency, 
-        changeSelectedCurrency, currencies 
+        changeSelectedCurrency, currencies, disabled 
     } = props;
 
 
@@ -21,12 +21,14 @@ const FormContent = (props) => {
                 onChange={ changeValueToConvert }
                 placeholder='ex.: 10'
                 required
+                disabled={disabled}
             />
             
             <select 
                 name="currencyFrom"
                 value={ selectedCurrency.currencyFrom } 
-                onChange={ changeSelectedCurrency } 
+                onChange={ changeSelectedCurrency }
+                disabled={disabled}
             >
                 <CurrenciesOptions currencies={ currencies } />
             </select>
@@ -36,7 +38,8 @@ const FormContent = (props) => {
             <select 
                 name="currencyTo" 
                 value={ selectedCurrency.currencyTo } 
-                onChange={ changeSelectedCurrency } 
+                onChange={ changeSelectedCurrency }
+                disabled={disabled}
             >
                 <CurrenciesOptions currencies={ currencies }/>
             </select>

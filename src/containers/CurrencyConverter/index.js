@@ -17,6 +17,7 @@ function CurrencyConverter() {
 	// ---------- STATES -----------
 	const [currencies, setCurrencies] = useState([]);
 	const [error, setError] = useState(false);
+	const [disabledForm, setDisabledForm] = useState(true);
 	const [currenciesToCompare, setCurrenciesToCompare] = useState({
 		currencyFrom: '',
 		currencyTo: ''
@@ -34,9 +35,8 @@ function CurrencyConverter() {
 			try {
 				const names = await fetchCurrencyNames();
 				let serializedCurrencies = createSerializedCurrencies(names.symbols);
-				
 				setCurrencies(serializedCurrencies);
-			
+				setDisabledForm(false);
 			} catch {
 				setError(true);
 			}
@@ -46,7 +46,7 @@ function CurrencyConverter() {
 	}, [])
 
 	useEffect(() => {
-		if (currencies) {
+		if (currencies.length) {
 			initCurrenciesToCompare();
 		}
 	}, [currencies]);
@@ -58,7 +58,7 @@ function CurrencyConverter() {
 		e.preventDefault();
 		try {
 		
-			validadeForm(error, valueToConvert, currencies, currenciesToCompare);
+			validadeForm(valueToConvert, currencies, currenciesToCompare);
 			setLoading(true);
 
 			const allQuotations = await fetchRates();
@@ -98,6 +98,7 @@ function CurrencyConverter() {
 	
 	const handleInitFields = useCallback( () => {
 		setError(false);
+		setDisabledForm(false);
 		initCurrenciesToCompare();
 		setValueToConvert(1);
 		setConvertResultMessage('');
@@ -135,11 +136,12 @@ function CurrencyConverter() {
 						selectedCurrency={ currenciesToCompare }
 						changeSelectedCurrency={ handleChangeCurrencyToCompare }
 						currencies={ currencies }
+						disabled={disabledForm}
 					/>
 
 					{ loading 
 						? <Spinner />
-						: <button type='submit'>converter</button>
+						: <button type='submit' disabled={disabledForm}>converter</button>
 					}
 				
 				</form>

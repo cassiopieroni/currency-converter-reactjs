@@ -1,21 +1,58 @@
-export const validadeForm = (error, valueToConvert, currencies, selectedCurrencies) => {
-
-    const { currencyFrom, currencyTo } = selectedCurrencies;
-
-    const isValueToConvert = () => (
-        valueToConvert && !Number.isNaN(valueToConvert) && valueToConvert > 0
-    );
-
-    const isSelectedCurrencies = () => (
-        currencyFrom && (typeof currencyFrom === 'string') && 
-        currencyTo && (typeof currencyTo === 'string') 
-    )
-
-    if ( !error && isValueToConvert() && currencies.length && isSelectedCurrencies()) {
-        return true;
+export const isValidValueToConvert = value => {
+    const isNumberType = typeof value === 'number';
+    if (!isNumberType) {
+        throw TypeError();
     }
     
-    throw Error();
+    if (value < 0) {
+        throw RangeError();
+    }
+    
+    return value ? true : false;
+}
+
+
+export const isValidCurrencies = currencies => {
+    const isArrayType = Array.isArray(currencies);
+    if (!isArrayType) {
+        throw TypeError();
+    }
+    
+    const currencyItemsDontHaveTheRightProps = !currencies[0].initial || !currencies[0].description;
+    if (!currencies.length || currencyItemsDontHaveTheRightProps) {
+        throw Error();
+    }
+    
+    return true;
+}
+
+
+export const isValidSelectedCurrencies = selectedCurrencies => {
+    const isArrayType = Array.isArray(selectedCurrencies);
+    const isObjectType = typeof selectedCurrencies === 'object';
+    const isValidType = isObjectType && !isArrayType
+    if (!isValidType) {
+        throw TypeError();
+    }
+
+    const { currencyFrom, currencyTo } = selectedCurrencies;
+    const dontHaveTheRequiredProps = !currencyFrom || !currencyTo;
+    if (dontHaveTheRequiredProps) {
+        throw Error();
+    }
+
+    return true;
+}
+
+
+export const validadeForm = (valueToConvert, currencies, selectedCurrencies) => {
+    if (
+        isValidValueToConvert(valueToConvert) && 
+        isValidCurrencies(currencies) && 
+        isValidSelectedCurrencies(selectedCurrencies)
+    ) {
+        return true;
+    }
 }
 
 
