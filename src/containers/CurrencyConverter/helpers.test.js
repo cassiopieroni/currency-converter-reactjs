@@ -1,68 +1,79 @@
 import { 
-    isValidValueToConvert, isValidCurrencies, isValidSelectedCurrencies 
+    createSerializedCurrencies
 } from './helpers';
 
-describe('Teste do helper - isValidValueToConvert(value)', () => {
 
-    it("Deve garantir que isValidValueToConvert(), lance 'TypeError'", () => {
-        expect(() => isValidValueToConvert()).toThrow(TypeError)   
-    })
+describe('Teste do helper - createSerializedCurrencies(symbols)', () => {
 
-    it("Deve garantir que isValidValueToConvert('1'), lance 'TypeError'", () => {
-        expect(() => isValidValueToConvert('1')).toThrow(TypeError)   
-    })
-
-    it("Deve garantir que isValidValueToConvert(-1), lance 'RangeError'", () => {
-        expect(() => isValidValueToConvert(-1)).toThrow(RangeError)
-    })
-
-    it("Deve garantir que isValidValueToConvert(0), retorne false'", () => {
-        expect(isValidValueToConvert(0)).toBe(false)
-    })
-
-    it("Deve garantir que isValidValueToConvert(1), retorne true'", () => {
-        expect(isValidValueToConvert(1)).toBe(true)
-    })
-
-});
-
-describe('Teste do helper - isValidCurrencies(currencies)', () => {
-
-    it("Deve garantir que isValidCurrencies(), lance 'TypeError'", () => {
-        expect(() => isValidCurrencies()).toThrow(TypeError)   
-    })
-
-    it("Deve garantir que isValidCurrencies([]), lance 'Error'", () => {
-        expect(() => isValidCurrencies([])).toThrow(Error)   
-    })
-
-    it("Deve garantir que isValidCurrencies([{}]), retorne false", () => {
-        expect(() => isValidCurrencies([{}])).toThrow(Error);   
-    })
-
-    it("Deve garantir que isValidCurrencies([{ initial: 'A', description: 'nameA' }]), retorne true", () => {
-        expect(isValidCurrencies([{ initial: 'A', description: 'nameA' }])).toBe(true);   
+    it("Deve garantir que { AAA: 'nameA' } seja transformado em [{ initial: 'AAA', description: 'nameA'}]", () => {
+        const symbols = { AAA: 'nameA' };
+        const serialized = [{ initial: 'AAA', description: 'nameA'}];
+        expect(createSerializedCurrencies(symbols)).toStrictEqual(serialized);
     })
 });
 
-describe('Teste do helper - isValidSelectedCurrencies(SelectedCurrencies)', () => {
 
-    it("Deve garantir que isValidSelectedCurrencies(), lance 'TypeError'", () => {
-        expect(() => isValidSelectedCurrencies()).toThrow(TypeError)   
-    })
+// describe('Teste do helper - isValidValueToConvert(value)', () => {
 
-    it("Deve garantir que isValidSelectedCurrencies([]), lance 'TypeError'", () => {
-        expect(() => isValidSelectedCurrencies([])).toThrow(TypeError)   
-    })
+//     it("Deve garantir que isValidValueToConvert(), lance 'TypeError'", () => {
+//         expect(() => isValidValueToConvert()).toThrow(TypeError)   
+//     })
 
-    it("Deve garantir que isValidSelectedCurrencies({}), lance 'Error'", () => {
-        expect(() => isValidSelectedCurrencies({})).toThrow(Error)   
-    })
+//     it("Deve garantir que isValidValueToConvert('1'), lance 'TypeError'", () => {
+//         expect(() => isValidValueToConvert('1')).toThrow(TypeError)   
+//     })
 
-    it("Deve garantir que isValidSelectedCurrencies({ currencyFrom: 'BRL', currencyTo: 'USD' }), retorne true", () => {
-        expect(isValidSelectedCurrencies({ currencyFrom: 'BRL', currencyTo: 'USD' })).toBe(true);   
-    })
-});
+//     it("Deve garantir que isValidValueToConvert(-1), lance 'RangeError'", () => {
+//         expect(() => isValidValueToConvert(-1)).toThrow(RangeError)
+//     })
+
+//     it("Deve garantir que isValidValueToConvert(0), retorne false'", () => {
+//         expect(isValidValueToConvert(0)).toBe(false)
+//     })
+
+//     it("Deve garantir que isValidValueToConvert(1), retorne true'", () => {
+//         expect(isValidValueToConvert(1)).toBe(true)
+//     })
+
+// });
+
+// describe('Teste do helper - isValidCurrencies(currencies)', () => {
+
+//     it("Deve garantir que isValidCurrencies(), lance 'TypeError'", () => {
+//         expect(() => isValidCurrencies()).toThrow(TypeError)   
+//     })
+
+//     it("Deve garantir que isValidCurrencies([]), lance 'Error'", () => {
+//         expect(() => isValidCurrencies([])).toThrow(Error)   
+//     })
+
+//     it("Deve garantir que isValidCurrencies([{}]), retorne false", () => {
+//         expect(() => isValidCurrencies([{}])).toThrow(Error);   
+//     })
+
+//     it("Deve garantir que isValidCurrencies([{ initial: 'A', description: 'nameA' }]), retorne true", () => {
+//         expect(isValidCurrencies([{ initial: 'A', description: 'nameA' }])).toBe(true);   
+//     })
+// });
+
+// describe('Teste do helper - isValidSelectedCurrencies(SelectedCurrencies)', () => {
+
+//     it("Deve garantir que isValidSelectedCurrencies(), lance 'TypeError'", () => {
+//         expect(() => isValidSelectedCurrencies()).toThrow(TypeError)   
+//     })
+
+//     it("Deve garantir que isValidSelectedCurrencies([]), lance 'TypeError'", () => {
+//         expect(() => isValidSelectedCurrencies([])).toThrow(TypeError)   
+//     })
+
+//     it("Deve garantir que isValidSelectedCurrencies({}), lance 'Error'", () => {
+//         expect(() => isValidSelectedCurrencies({})).toThrow(Error)   
+//     })
+
+//     it("Deve garantir que isValidSelectedCurrencies({ currencyFrom: 'BRL', currencyTo: 'USD' }), retorne true", () => {
+//         expect(isValidSelectedCurrencies({ currencyFrom: 'BRL', currencyTo: 'USD' })).toBe(true);   
+//     })
+// });
 
 // describe('Teste do helper - validateForm(error, valueToConvert, currencies, selectedCurrencies)', () => {
     

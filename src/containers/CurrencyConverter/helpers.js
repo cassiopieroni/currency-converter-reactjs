@@ -1,30 +1,33 @@
 export const isValidValueToConvert = value => {
+
+    const messageOfInvalidValueToConvert = 'Digite um número válido para efetuar a conversão.';
+
     const isNumberType = typeof value === 'number';
     if (!isNumberType) {
-        throw TypeError();
+        throw TypeError(messageOfInvalidValueToConvert);
     }
     
-    if (value < 0) {
-        throw RangeError();
+    if (value <= 0) {
+        throw RangeError(messageOfInvalidValueToConvert);
     }
     
     return value ? true : false;
 }
 
 
-export const isValidCurrencies = currencies => {
-    const isArrayType = Array.isArray(currencies);
-    if (!isArrayType) {
-        throw TypeError();
-    }
+// export const isValidCurrencies = currencies => {
+//     const isArrayType = Array.isArray(currencies);
+//     if (!isArrayType) {
+//         throw TypeError();
+//     }
     
-    const currencyItemsDontHaveTheRightProps = !currencies[0].initial || !currencies[0].description;
-    if (!currencies.length || currencyItemsDontHaveTheRightProps) {
-        throw Error();
-    }
+//     const currencyItemsDontHaveTheRightProps = !currencies[0].initial || !currencies[0].description;
+//     if (!currencies.length || currencyItemsDontHaveTheRightProps) {
+//         throw Error();
+//     }
     
-    return true;
-}
+//     return true;
+// }
 
 
 export const isValidSelectedCurrencies = selectedCurrencies => {
@@ -45,12 +48,8 @@ export const isValidSelectedCurrencies = selectedCurrencies => {
 }
 
 
-export const validadeForm = (valueToConvert, currencies, selectedCurrencies) => {
-    if (
-        isValidValueToConvert(valueToConvert) && 
-        isValidCurrencies(currencies) && 
-        isValidSelectedCurrencies(selectedCurrencies)
-    ) {
+export const validadeForm = (valueToConvert, selectedCurrencies) => {
+    if ( isValidValueToConvert(valueToConvert) && isValidSelectedCurrencies(selectedCurrencies) ) {
         return true;
     }
 }

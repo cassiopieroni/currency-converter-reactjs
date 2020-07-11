@@ -1,12 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import CurrencyConverter from './index.js';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-describe('testing my CurrencyConverter.js', () => {
+import CurrencyConverter from './index';
 
-	it('must render the component without errors', () => {
-		const div = document.createElement('div');
-		ReactDOM.render(<CurrencyConverter/>, div);
-		ReactDOM.unmountComponentAtNode(div);
-	})
+
+
+describe("teste do componente CurrencyConverter", () => {
+
+    it('Deve renderizar o componente sem erros', () => {
+        const div = document.createElement('div');
+        ReactDOM.render(<CurrencyConverter />, div);
+    })
 })

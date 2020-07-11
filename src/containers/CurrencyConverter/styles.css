@@ -39,3 +39,7 @@
 	text-transform: uppercase;
 	cursor: pointer;
 }
+
+.App .content form .disabled {
+	cursor: not-allowed;
+}

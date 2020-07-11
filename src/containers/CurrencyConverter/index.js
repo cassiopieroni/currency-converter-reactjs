@@ -6,24 +6,25 @@ import ResultBox from '../../components/ResultBox';
 import FormContent from './FormContent';
 
 import { validadeForm, getQuotation, createSerializedCurrencies } from './helpers.js';
-import { fetchRates, fetchCurrencyNames } from '../../services/api';
+import { fetchRates, fetchCurrencies } from '../../services/api';
 
 import './styles.css';
-import './mediaQueries.css';
 
 
 function CurrencyConverter() {
 
 	// ---------- STATES -----------
-	const [currencies, setCurrencies] = useState([]);
-	const [error, setError] = useState(false);
-	const [disabledForm, setDisabledForm] = useState(true);
+	const [currenciesData, setCurrenciesData] = useState([]);
+	const [error, setError] = useState({
+		isError: false,
+		message: '',
+	});
 	const [currenciesToCompare, setCurrenciesToCompare] = useState({
 		currencyFrom: '',
 		currencyTo: ''
 	});
 	const [valueToConvert, setValueToConvert] = useState(1);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [convertResultMessage, setConvertResultMessage] = useState('');
 	const [showResult, setShowResult] = useState(false);
 	// ---------- STATES -----------
@@ -33,12 +34,18 @@ function CurrencyConverter() {
 	useEffect(() => {
 		const getCurrencies = async () => {
 			try {
-				const names = await fetchCurrencyNames();
-				let serializedCurrencies = createSerializedCurrencies(names.symbols);
-				setCurrencies(serializedCurrencies);
-				setDisabledForm(false);
-			} catch {
-				setError(true);
+				const symbols = await fetchCurrencies();
+				let serializedCurrencies = createSerializedCurrencies(symbols);
+				setCurrenciesData(serializedCurrencies);
+				setLoading(false);
+
+			} catch ( err ){
+				setError({
+					...error,
+					isError: true,
+					message: err.message,
+				})
+				setLoading(false);
 			}
 		}
 
@@ -46,10 +53,10 @@ function CurrencyConverter() {
 	}, [])
 
 	useEffect(() => {
-		if (currencies.length) {
+		if (currenciesData.length) {
 			initCurrenciesToCompare();
 		}
-	}, [currencies]);
+	}, [currenciesData]);
 	// ---------- LIFE CYCLE -----------
 
 
@@ -58,7 +65,7 @@ function CurrencyConverter() {
 		e.preventDefault();
 		try {
 		
-			validadeForm(valueToConvert, currencies, currenciesToCompare);
+			validadeForm(valueToConvert, currenciesToCompare);
 			setLoading(true);
 
 			const allQuotations = await fetchRates();
@@ -70,9 +77,13 @@ function CurrencyConverter() {
 			setLoading(false);
 			setShowResult(true);
 		
-		} catch {
+		} catch (err){
 			setLoading(false);
-			setError(true);
+			setError({
+				...error,
+				isError: true,
+				message: err.message,
+			})
 		}
 	}
 	// ---------- SUBMIT FORM -----------
@@ -97,8 +108,10 @@ function CurrencyConverter() {
 
 	
 	const handleInitFields = useCallback( () => {
-		setError(false);
-		setDisabledForm(false);
+		setError({
+			isError: false,
+			message: '',
+		});
 		initCurrenciesToCompare();
 		setValueToConvert(1);
 		setConvertResultMessage('');
@@ -117,6 +130,8 @@ function CurrencyConverter() {
 	}
 	// ---------- ENCAPSULATION -----------
 	
+	const disableForm = (!currenciesData || !currenciesData.length) ? true : false;
+
 
 	return (
 
@@ -135,14 +150,18 @@ function CurrencyConverter() {
 						changeValueToConvert={ handleValueToConvert }
 						selectedCurrency={ currenciesToCompare }
 						changeSelectedCurrency={ handleChangeCurrencyToCompare }
-						currencies={ currencies }
-						disabled={disabledForm}
+						currencies={ currenciesData }
 					/>
 
-					{ loading 
-						? <Spinner />
-						: <button type='submit' disabled={disabledForm}>converter</button>
-					}
+					{ loading ? <Spinner /> : (
+						<button 
+							type='submit' 
+							disabled={ disableForm } 
+							className={ disableForm ? 'disabled' : ''} 
+						>
+							converter
+						</button>
+					)}
 				
 				</form>
 
