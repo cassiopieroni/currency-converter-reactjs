@@ -27,7 +27,7 @@
 .form-content select {
 	padding: 0 8px;
 	height: 40px;
-	min-width: 220px;
+	width: 280px;
 	border: 1px solid var(--border-color);
 	background-color: var(--primary-background);
 	color: var(--text-color);
