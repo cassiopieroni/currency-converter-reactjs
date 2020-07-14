@@ -76,6 +76,7 @@ function CurrencyConverter() {
 			`);
 			setLoading(false);
 			setShowResult(true);
+			setError({ isError: false, message: '' })
 		
 		} catch (err){
 			setLoading(false);
