@@ -1,3 +1,13 @@
+:root {
+    --primary-background: rgb(26, 25, 25);
+    --error-background: rgb(253, 155, 155);
+    --opacity-dark-background: rgba(0, 0, 0, .5);
+    --contrast-color: rgb(145, 22, 145);
+    --text-color: #f4f4f4;
+    --text-error-color: red;
+    --border-color: #808080;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,4 +17,14 @@
 body, html {
     width: 100%;
     min-width: 300px;
+    font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6, button {
+    color: var(--text-color);
+    font-family: 'Ubuntu', sans-serif;
+}
+
+body, input, select {
+    font-family: Roboto, Arial, Helvetica, sans-serif;
 }

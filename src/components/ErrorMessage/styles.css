@@ -5,9 +5,12 @@
     min-height: 40px;
     line-height: 40px;
     font-size: 1.05rem;
-    text-align: left;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    text-align: justify;
+    font-weight: bold;
     padding: 0 16px;
-    background-color: rgb(253, 155, 155);
-    border: 1px solid red;
-    color: red;
+    background-color: var(--error-background);
+    border: 1px solid var(--text-error-color);
+    color: var(--text-error-color);
+    text-transform: uppercase;
 }
