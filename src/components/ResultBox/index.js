@@ -9,12 +9,20 @@ const ResultBox = (props) => {
         return null;
     }
 
+    const handleClick = e => {
+        const { id } = e.target;
+        if(id === 'resultBox'){
+            props.closeBox();
+            return;
+        }
+        return;
+    }
 
     return (
         
-        <div className='resultBox' data-testid='result-box'>
+        <div className='resultBox' id='resultBox' data-testid='result-box' onClick={ handleClick }>
         
-            <div className='result-content'>
+            <div className='result-content' id='result-content'>
         
                 <button 
                     className='close-btn' 
