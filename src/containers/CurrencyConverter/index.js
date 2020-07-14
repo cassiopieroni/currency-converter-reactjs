@@ -40,11 +40,11 @@ function CurrencyConverter() {
 				setLoading(false);
 
 			} catch ( err ){
-				setError({
-					...error,
+				setError( prevState => ({
+					...prevState,
 					isError: true,
 					message: err.message,
-				})
+				}))
 				setLoading(false);
 			}
 		}
@@ -90,15 +90,25 @@ function CurrencyConverter() {
 	// ---------- SUBMIT FORM -----------
 
 
+	// ---------- ENCAPSULATION -----------
+	const initCurrenciesToCompare = useCallback( () => {
+		setCurrenciesToCompare( prevState => ({
+			...prevState,
+			currencyFrom: 'BRL',
+			currencyTo: 'USD'
+		}))
+	}, []);
+	// ---------- ENCAPSULATION -----------
+
+
 	// ---------- CALLBACK FUNCTIONS -----------
 	const handleChangeCurrencyToCompare = useCallback( e => {
 		const { name, value } = e.target;
-		setCurrenciesToCompare({
-			...currenciesToCompare,
+		setCurrenciesToCompare( prevState => ({
+			...prevState,
 			[name]: value,
-		})
-	}, [currenciesToCompare]);
-
+		}));
+	}, []);
 
 	const handleValueToConvert = useCallback( e => {
 		setValueToConvert( Number(e.target.value.replace(/\D/g, '')));
@@ -106,29 +116,15 @@ function CurrencyConverter() {
 
 	const handleCloseBox = useCallback( () => setShowResult(false), []);
 
-	
 	const handleInitFields = useCallback( () => {
-		setError({
-			isError: false,
-			message: '',
-		});
+		setError({ isError: false, message: '' });
 		initCurrenciesToCompare();
 		setValueToConvert(1);
 		setConvertResultMessage('');
 		handleCloseBox();
-	}, []);
+	}, [initCurrenciesToCompare, handleCloseBox]);
 	// ---------- CALLBACK FUNCTIONS -----------
 
-
-	// ---------- ENCAPSULATION -----------
-	const initCurrenciesToCompare = () => {
-		setCurrenciesToCompare({
-			...currenciesToCompare,
-			currencyFrom: 'BRL',
-			currencyTo: 'USD'
-		});
-	}
-	// ---------- ENCAPSULATION -----------
 	
 	const disableForm = (!currenciesData || !currenciesData.length) ? true : false;
 
