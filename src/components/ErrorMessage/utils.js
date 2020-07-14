@@ -1,0 +1,1 @@
+export const defaultMessage = `Oops.. tivemos um problema. Tente novamente!`;

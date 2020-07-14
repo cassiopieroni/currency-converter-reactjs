@@ -57,6 +57,7 @@ describe('Teste do helper - isValidSelectedCurrencies(SelectedCurrencies)', () =
     })
 });
 
+
 describe('Teste do helper - validateForm(valueToConvert, selectedCurrencies)', () => {
 
     const validValueToConvert = 10;

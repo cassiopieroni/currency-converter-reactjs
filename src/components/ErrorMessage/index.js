@@ -1,7 +1,6 @@
 import React from 'react';
-
+import { defaultMessage } from './utils';
 import './styles.css';
-
 
 const ErrorMessage = ({ error }) => {
     const { isError, message } = error
@@ -12,7 +11,7 @@ const ErrorMessage = ({ error }) => {
 
     return (
         <div className='message-error' data-testid='message-error'>
-            { message ? message : `Oops.. tivemos um problema. Tente novamente!`}
+            { message ? message : defaultMessage }
         </div>
     )
 }

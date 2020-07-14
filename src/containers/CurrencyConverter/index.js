@@ -69,7 +69,6 @@ function CurrencyConverter() {
 			setLoading(true);
 
 			const allQuotations = await fetchRates();
-			console.log(allQuotations)
 			const quotation = getQuotation(allQuotations, currenciesToCompare, valueToConvert);
 
 			setConvertResultMessage(`
@@ -137,7 +136,7 @@ function CurrencyConverter() {
 
 		<div className='App'>
 
-			<main className="content">
+			<main className="content" data-testid='content-currencyConverter'>
 			
 				<h1>Conversor de moedas</h1>
 			

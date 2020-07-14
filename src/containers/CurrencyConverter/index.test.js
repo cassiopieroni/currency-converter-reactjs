@@ -9,7 +9,7 @@ describe("teste do componente CurrencyConverter - HAPPY PATH", () => {
 
     const currenciesData = { 
         success: true,
-        symbols: { BRL: "Brazilian Real", USD: "United States Dollar" }  
+        symbols: { BRL: "Brazilian Real", USD: "United States Dollar", AAA: "nameAAA", BBB: "nameBBB" }  
     }
 
     const ratesData = { 
@@ -119,6 +119,76 @@ describe("teste do componente CurrencyConverter - HAPPY PATH", () => {
 
         expect(resultBox).toBeInTheDocument();
         expect(resultBox).toHaveTextContent('10 BRL = 1.85 USD');
+    })
+
+
+    it(`Após simular corretamente toda uma conversão de moedas, deve apresentar o componente ResultBox e, 
+    ao clicar no botão de fechar o componente ('resultBox-btnClose'), ResultBox deve ser fechado, 
+    mantendo o estado atual em CurrencyConverter.`, async () => {
+
+        
+        fetch.mockResponseOnce(JSON.stringify(currenciesData));
+
+        const { findByTestId } = render(<CurrencyConverter />);
+
+        const formConverter = await(findByTestId('form-converter'));
+        const inputValue = await findByTestId('inputValueToConvert');
+        const selectCurrencyFrom = await findByTestId('selectCurrencyFrom');
+        const selectCurrencyTo = await findByTestId('selectCurrencyTo');
+
+        fireEvent.change(inputValue, { target: { value: 10 } });
+        fireEvent.change(selectCurrencyFrom, { target: { value: 'BRL' } })
+        fireEvent.change(selectCurrencyTo, { target: { value: 'USD' } })
+
+        fetch.mockResponseOnce(JSON.stringify(ratesData))
+
+        fireEvent.submit(formConverter);
+
+        const resultBox = await findByTestId('result-box');
+        expect(resultBox).toBeInTheDocument();
+
+        const closeBtn = await findByTestId('resultBox-btnClose');
+        fireEvent.click(closeBtn);
+
+        expect(resultBox).not.toBeInTheDocument();
+        expect(inputValue).toHaveValue('10');
+        expect(selectCurrencyFrom).toHaveValue('BRL');
+        expect(selectCurrencyTo).toHaveValue('USD');
+    })
+
+
+    it(`Após simular corretamente toda uma conversão de moedas, deve apresentar o componente ResultBox e, 
+    ao clicar no botão de nova conversão ('resultBox-btnNewConvert'), ResultBox deve ser fechado, 
+    resetando o estado atual para o estado inicial em CurrencyConverter.`, async () => {
+
+        
+        fetch.mockResponseOnce(JSON.stringify(currenciesData));
+
+        const { findByTestId } = render(<CurrencyConverter />);
+
+        const formConverter = await(findByTestId('form-converter'));
+        const inputValue = await findByTestId('inputValueToConvert');
+        const selectCurrencyFrom = await findByTestId('selectCurrencyFrom');
+        const selectCurrencyTo = await findByTestId('selectCurrencyTo');
+
+        fireEvent.change(inputValue, { target: { value: 10 } });
+        fireEvent.change(selectCurrencyFrom, { target: { value: 'AAA' } })
+        fireEvent.change(selectCurrencyTo, { target: { value: 'BBB' } })
+
+        fetch.mockResponseOnce(JSON.stringify(ratesData))
+
+        fireEvent.submit(formConverter);
+
+        const resultBox = await findByTestId('result-box');
+        expect(resultBox).toBeInTheDocument();
+
+        const newConvertBtn = await findByTestId('resultBox-btnNewConvert')
+        fireEvent.click(newConvertBtn);
+
+        expect(resultBox).not.toBeInTheDocument();
+        expect(inputValue).toHaveValue('1'); //initial state
+        expect(selectCurrencyFrom).toHaveValue('BRL'); //initial state
+        expect(selectCurrencyTo).toHaveValue('USD'); //initial state
     })
 });
 

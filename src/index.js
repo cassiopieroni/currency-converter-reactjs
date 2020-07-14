@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom';
 import CurrencyConverter from './containers/CurrencyConverter';
 import * as serviceWorker from './serviceWorker';
 
-import './index.css';
-import './mediaQueries.css';
+import './styles/index.css';
+import './styles/mediaQueries.css';
 
 ReactDOM.render(
 	<React.StrictMode>

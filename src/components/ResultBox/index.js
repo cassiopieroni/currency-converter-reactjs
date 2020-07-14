@@ -16,13 +16,21 @@ const ResultBox = (props) => {
         
             <div className='result-content'>
         
-                <button className='close-btn' onClick={ props.closeBox }>
+                <button 
+                    className='close-btn' 
+                    onClick={ props.closeBox }
+                    data-testid='resultBox-btnClose'
+                >
                     x
                 </button>
         
-                <p>{ props.content }</p>
+                <p data-testid='message-resultBox' >{ props.content }</p>
         
-                <button className='btn' onClick={ props.newRate }>
+                <button 
+                    className='btn' 
+                    onClick={ props.newRate }
+                    data-testid='resultBox-btnNewConvert'
+                >
                     Nova Conversão
                 </button>
         
