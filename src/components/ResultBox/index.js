@@ -12,7 +12,7 @@ const ResultBox = (props) => {
 
     return (
         
-        <div className='resultBox' >
+        <div className='resultBox' data-testid='result-box'>
         
             <div className='result-content'>
         

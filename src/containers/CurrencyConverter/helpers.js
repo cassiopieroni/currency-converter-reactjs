@@ -1,3 +1,15 @@
+export const createSerializedCurrencies = symbols => {
+    let serializedCurrencies = [];
+
+    for (var prop in symbols) {
+        const newCurrency = { initial: prop, description: symbols[prop] }
+        serializedCurrencies.push(newCurrency);
+    }
+
+    return [...serializedCurrencies];
+}
+
+//---------------VALIDATE FORM --------------------------------
 export const isValidValueToConvert = value => {
 
     const messageOfInvalidValueToConvert = 'Digite um número válido para efetuar a conversão.';
@@ -14,22 +26,6 @@ export const isValidValueToConvert = value => {
     return value ? true : false;
 }
 
-
-// export const isValidCurrencies = currencies => {
-//     const isArrayType = Array.isArray(currencies);
-//     if (!isArrayType) {
-//         throw TypeError();
-//     }
-    
-//     const currencyItemsDontHaveTheRightProps = !currencies[0].initial || !currencies[0].description;
-//     if (!currencies.length || currencyItemsDontHaveTheRightProps) {
-//         throw Error();
-//     }
-    
-//     return true;
-// }
-
-
 export const isValidSelectedCurrencies = selectedCurrencies => {
     const isArrayType = Array.isArray(selectedCurrencies);
     const isObjectType = typeof selectedCurrencies === 'object';
@@ -41,18 +37,20 @@ export const isValidSelectedCurrencies = selectedCurrencies => {
     const { currencyFrom, currencyTo } = selectedCurrencies;
     const dontHaveTheRequiredProps = !currencyFrom || !currencyTo;
     if (dontHaveTheRequiredProps) {
-        throw Error();
+        throw Error('Selecione os valores para a conversão.');
     }
 
     return true;
 }
 
-
 export const validadeForm = (valueToConvert, selectedCurrencies) => {
     if ( isValidValueToConvert(valueToConvert) && isValidSelectedCurrencies(selectedCurrencies) ) {
         return true;
     }
+
+    return false;
 }
+//---------------VALIDATE FORM --------------------------------
 
 
 export const getQuotation = (quotations, selectedCurrencies, valueToConvert) => {
@@ -61,15 +59,3 @@ export const getQuotation = (quotations, selectedCurrencies, valueToConvert) => 
     const quotation = (1 / quotationFrom * quotationTo) * valueToConvert;
     return quotation.toFixed(2);
 };
-
-
-export const createSerializedCurrencies = symbols => {
-    let serializedCurrencies = [];
-
-    for (var prop in symbols) {
-        const newCurrency = { initial: prop, description: symbols[prop] }
-        serializedCurrencies.push(newCurrency);
-    }
-
-    return [...serializedCurrencies];
-}

@@ -15,7 +15,7 @@ const CurrenciesOptions = ({ currencies }) => {
 
         <>
             { ordenedCurrencies.map( coin =>  (
-                <option key={ coin.initial } value={ coin.initial } >
+                <option key={ coin.initial } value={ coin.initial } data-testid={coin.initial} >
                     { coin.description }
                 </option> 
             ))}

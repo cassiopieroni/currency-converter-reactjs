@@ -69,6 +69,7 @@ function CurrencyConverter() {
 			setLoading(true);
 
 			const allQuotations = await fetchRates();
+			console.log(allQuotations)
 			const quotation = getQuotation(allQuotations, currenciesToCompare, valueToConvert);
 
 			setConvertResultMessage(`
@@ -100,10 +101,9 @@ function CurrencyConverter() {
 
 
 	const handleValueToConvert = useCallback( e => {
-		setValueToConvert(e.target.value.replace(/\D/g, ''));
+		setValueToConvert( Number(e.target.value.replace(/\D/g, '')));
 	}, []);
 
-	
 	const handleCloseBox = useCallback( () => setShowResult(false), []);
 
 	
@@ -141,7 +141,7 @@ function CurrencyConverter() {
 			
 				<h1>Conversor de moedas</h1>
 			
-				<form onSubmit={ handleConvertSubmit }>
+				<form onSubmit={ handleConvertSubmit } data-testid='form-converter'>
 			
 					<ErrorMessage error={error} />
 
@@ -157,7 +157,8 @@ function CurrencyConverter() {
 						<button 
 							type='submit' 
 							disabled={ disableForm } 
-							className={ disableForm ? 'disabled' : ''} 
+							className={ disableForm ? 'disabled' : ''}
+							data-testid='convert-btn'
 						>
 							converter
 						</button>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import CurrenciesOptions from '../../../components/CurrenciesOptions';
 import './styles.css';
 
@@ -10,9 +10,18 @@ const FormContent = (props) => {
         changeSelectedCurrency, currencies, 
     } = props;
 
+    const inputValueRef = useRef(null);
+    useEffect( () => {
+        if (currencies.length) {
+            inputValueRef.current.focus();
+        }
+    }, [currencies, valueToConvert])
+
+
     const disableForm = !currencies.length ? true : false;
     const classStyle = disableForm ? 'disabled' : ''; 
 
+    
     return (
     
         <div className='form-content'>
@@ -26,6 +35,7 @@ const FormContent = (props) => {
                 disabled={ disableForm }
                 className={ classStyle }
                 data-testid='inputValueToConvert'
+                ref={inputValueRef}
             />
             
             <select 

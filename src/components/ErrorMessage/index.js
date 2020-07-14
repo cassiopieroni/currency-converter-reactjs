@@ -11,7 +11,7 @@ const ErrorMessage = ({ error }) => {
     }
 
     return (
-        <div className='message-error'>
+        <div className='message-error' data-testid='message-error'>
             { message ? message : `Oops.. tivemos um problema. Tente novamente!`}
         </div>
     )

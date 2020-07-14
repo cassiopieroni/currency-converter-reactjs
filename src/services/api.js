@@ -10,12 +10,10 @@ export const fetchRates = async () => {
     if (!data.success) {
         throw Error(errorFetchRatesMessage);
     }
-
     return data.rates;
 };
 
 export const fetchCurrencies = async () => {
-
     const result = await fetch(`${BASE_URL}symbols${MY_KEY}`);
     const data = await result.json();
 

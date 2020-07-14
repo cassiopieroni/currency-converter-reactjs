@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, fireEvent, cleanup } from '@testing-library/react';
-import { toHaveDisplayValue } from '@testing-library/jest-dom';
 
 import FormContent from './index.js';
 
@@ -32,19 +31,6 @@ describe("teste do componente <FormContent />", () => {
         cleanup();
     })
 
-
-    it("Se 'currencies === []', o componente deve estar bloqueado para ações do usuáiro", () => {
-
-        const { getByTestId } = render(
-            <FormContent { ...defaultProps } {...handlerProps} currencies={ [] } />
-        );
-
-        expect(getByTestId('inputValueToConvert')).toBeDisabled()
-        expect(getByTestId('selectCurrencyFrom')).toBeDisabled()
-        expect(getByTestId('selectCurrencyTo')).toBeDisabled()
-    })
-
-
     it("Deve lidar com alterações nos elementos do formulário", () => {
 
         const { getByTestId, rerender } = render(
@@ -59,12 +45,32 @@ describe("teste do componente <FormContent />", () => {
         fireEvent.change(selectCurrencyFrom, { target: { value: 'BBB'} });
         fireEvent.change(selectCurrencyTo, { target: { value: 'CCC'} });
 
-        rerender(
-            <FormContent {...defaultProps} {...handlerProps} />
-        )
+        rerender( <FormContent {...defaultProps} {...handlerProps} /> )
 
         expect(inputValueToConvert).toHaveValue('10');
         expect(selectCurrencyFrom).toHaveValue('BBB');
         expect(selectCurrencyTo).toHaveValue('CCC');
     })
+
+    
+    it("Ao renderizar o componente com todas as props corretas, o input de valor deve ter foco (focus)", () => {
+
+        const { getByTestId } = render( <FormContent {...defaultProps} {...handlerProps} /> );
+
+        const inputValueToConvert = getByTestId('inputValueToConvert');
+
+        expect(inputValueToConvert).toHaveFocus();
+    })
+
+
+    it("Se 'currencies === []', o componente deve estar bloqueado para ações do usuáiro", () => {
+
+        const { getByTestId } = render(
+            <FormContent { ...defaultProps } {...handlerProps} currencies={ [] } />
+        );
+
+        expect(getByTestId('inputValueToConvert')).toBeDisabled()
+        expect(getByTestId('selectCurrencyFrom')).toBeDisabled()
+        expect(getByTestId('selectCurrencyTo')).toBeDisabled()
+    });
 })

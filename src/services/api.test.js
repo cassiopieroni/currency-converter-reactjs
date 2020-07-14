@@ -11,11 +11,11 @@ describe('fetchCurrencies() - teste de busca de nomes das moedas na api fixer.io
         
         fetch.mockResponseOnce(JSON.stringify({ 
             success: true,
-            symbols: [ { AAA: "coinName" } ] 
+            symbols: { AAA: "coinName" } 
         }));
 
         const symbols = await fetchCurrencies();
-        expect(symbols).toStrictEqual([{ AAA: "coinName" }]);
+        expect(symbols).toStrictEqual({ AAA: "coinName" });
         expect(fetch).toHaveBeenCalledTimes(1);
     });
 
@@ -52,11 +52,11 @@ describe('fetchRates() - teste de busca de cotações na api fixer.io', () => {
 
         fetch.mockResponseOnce(JSON.stringify({ 
             success: true,
-            rates: [{ BBB: 87.029292 }] 
+            rates: { BBB: 87.029292 } 
         }))
         
         const rates = await fetchRates();
-        expect(rates).toStrictEqual([{ BBB: 87.029292 }]);
+        expect(rates).toStrictEqual({ BBB: 87.029292 });
         expect(fetch).toHaveBeenCalledTimes(1);
     });
 
