@@ -1,5 +1,5 @@
 # currency-converter-reactjs
-   Aplicação desenvolida com foco (em fase de estudos) em **testes unitários** e **testes de implementação** com [@testing-library](https://testing-library.com/);
+   Aplicação desenvolida com foco (em fase de estudos) em **testes unitários** e **testes de integração** com [@testing-library](https://testing-library.com/);
 
 ## Conversor de moedas
    ![usabilidade](https://github.com/cassiopieroni/currency-converter-reactjs/blob/master/github/usability.gif)
